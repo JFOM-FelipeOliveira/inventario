@@ -1,10 +1,12 @@
 import './App.css';
+import { AuthProvider } from './contexts/auth';
+import RotasApp from './routes/rotas';
 
 function App() {
   return (
-    <div className="App">
-      <h1> Página App </h1>
-    </div>
+    <AuthProvider>
+      <RotasApp />
+    </AuthProvider>
   );
 }
 
