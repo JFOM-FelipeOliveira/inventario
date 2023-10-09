@@ -1,57 +1,39 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
+import Axios from 'axios';
 
 const Cadastro = () => {
-  const [email, setEmail] = useState("");
-  const [emailConf, setEmailConf] = useState("");
-  const [senha, setSenha] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const [users, setUsers] = useState();
 
-  const { signup } = useAuth();
-
-  const handleSignup = () => {
-    if (!email | !emailConf | !senha) {
-      setError("Preencha todos os campos");
-      return;
-    } else if (email !== emailConf) {
-      setError("Os e-mails não são iguais");
-      return;
-    }
-
-    const res = signup(email, senha);
-
-    if (res) {
-      setError(res);
-      return;
-    }
-
-    alert("Usuário cadatrado com sucesso!");
-    navigate("/");
+  const handleSignup = (value) => {
+    setUsers((prevValue) => ({
+      ...prevValue, [value.target.name]: value.target.value, 
+    }))
   };
 
+
+  const handleClick = () => {
+    Axios.post("http://localhost:3001/registro",{
+      email: users.email,
+      senha: users.senha,
+    }).then((response) => console.log(response));
+
+  }
   return (
     <div>
-      <h1>SISTEMA DE LOGIN</h1>
+      <h1>SISTEMA DE CADASTRO</h1>
       <form>
         <input
           type="email"
           placeholder="Digite seu E-mail"
-          value={email}
-          onChange={(e) => [setEmail(e.target.value), setError("")]} />
-        <input
-          type="email"
-          placeholder="Confirme seu E-mail"
-          value={emailConf}
-          onChange={(e) => [setEmailConf(e.target.value), setError("")]} />
+          name="email"
+          onChange={handleSignup} />
         <input
           type="password"
           placeholder="Digite sua Senha"
-          value={senha}
-          onChange={(e) => [setSenha(e.target.value), setError("")]} />
-        <h2>{error}</h2>
-        <button onClick={handleSignup}> Inscrever-se </button>
+          name="senha"
+          onChange={handleSignup} />
+        <button onClick={handleClick}> Inscrever-se </button>
         <h3>
           Já tem uma conta?
           <Link to="/">&nbsp;Entre</Link>
