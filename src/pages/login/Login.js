@@ -46,10 +46,10 @@ const Login = () => {
           required
         />
         <button onClick={handleLogin}> Entrar </button>
-        <h3> {error} </h3>
+        <span> {error} </span>
         <h3>
           Não tem uma conta?
-          <Link to="/cadastro">&nbsp;Registre-se</Link>
+          <button> <Link to="/cadastro">&nbsp;Registre-se</Link> </button>
         </h3>
       </form>
     </div>

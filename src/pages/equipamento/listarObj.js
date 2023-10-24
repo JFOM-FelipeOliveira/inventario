@@ -1,34 +1,44 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/navbar";
+import Axios from "axios";
+import "./listarObj.css";
 
-const ListarObj = () => {
+const Equipamento = () => {
+  const [objeto, setObjeto] = useState([]);
 
-  const [modelo, setModelo] = useState("");
-  const [desc, setDesc] = useState("");
-  const [memoria, setMemoria] = useState("");
-  const [armazenamento, setArmazenamento] = useState("");
-
-  const objetosStorage = JSON.parse(localStorage.getItem("objetos_bd"));
-
-  useEffect(() =>{
-    setModelo(objetosStorage.modelo)
-    setDesc(objetosStorage.desc)
-    setMemoria(objetosStorage.memoria)
-    setArmazenamento(objetosStorage.armazenamento)
-  },[]);
-
+  useEffect(() => {
+    Axios.get("http://localhost:3001/buscaobj").then((Response) => {
+      setObjeto(Response.data);
+    });
+  }, []);
 
   return (
-    <div>
+    <>
       <Navbar />
       <hr />
-      <h1> Lista de Equipamentos </h1>
-      <h2> {modelo} </h2>
-      <h2> {desc} </h2>
-      <h2> {memoria} </h2>
-      <h2> {armazenamento} </h2>
-    </div>
-  )
-}
+      <div className="lista">
+        {objeto.length > 0 &&
+          objeto.map((equip) =>
+            equip.descricao === "Monitor" ? (
+              <div key={equip.id_equip} className="equipamento">
+                <h2 className="desc"> {equip.descricao} {equip.marca} </h2>
+                <h2 className="desc"> Tombo: {equip.tombamento} </h2>
+                <h2 className="desc"> Local: {equip.local} </h2>
+              </div>
+            ) : (
+              <div key={equip.id_equip} className="equipamento">
+                <h2 className="desc"> {equip.descricao} {equip.marca} </h2>
+                <h2 className="desc"> Tombo: {equip.tombamento} </h2>
+                <h2> Memória RAM: {equip.memoria} GB </h2>
+                <h2> HD/SSD: {equip.armazenamento} GB </h2>
+                <h2> SO : {equip.sistema} </h2>
+                <h2> Local: {equip.local} </h2>
+              </div>
+            )
+          )}
+      </div>
+    </>
+  );
+};
 
-export default ListarObj;
+export default Equipamento;

@@ -10,7 +10,7 @@ const Cadastro = () => {
       ...prevValue, [value.target.name]: value.target.value, 
     }))
   };
-
+  console.log(users)
 
   const handleClick = () => {
     Axios.post("http://localhost:3001/registro",{
@@ -33,10 +33,10 @@ const Cadastro = () => {
           placeholder="Digite sua Senha"
           name="senha"
           onChange={handleSignup} />
-        <button onClick={handleClick}> Inscrever-se </button>
+          <button onClick={handleClick}> Inscrever-se </button>
         <h3>
           Já tem uma conta?
-          <Link to="/">&nbsp;Entre</Link>
+          <button> <Link to="/">&nbsp;Entre</Link> </button>
         </h3>
       </form>
     </div>

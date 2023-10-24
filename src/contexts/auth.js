@@ -13,10 +13,11 @@ export const AuthProvider = ({ children }) => {
   const usersStorage = localStorage.getItem("users_bd");
 
   const signin = (email, senha) => {
+    localStorage.setItem("user_token", email);
+    
     const userToken = localStorage.getItem("user_token");
 
-    localStorage.setItem("user_token", email);
-
+    
     if (userToken && usersStorage) {
       const hasUser = JSON.parse(usersStorage)?.filter(
         (user) => user.email === userToken

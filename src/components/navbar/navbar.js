@@ -5,15 +5,18 @@ import "./navbar.css";
 
 const Navbar = () => {
     const { signout } = useAuth();
+    const  {user} = useAuth();
     const navigate = useNavigate();
 
   return (
-    <div>
-      <Link to="/home"> Home </Link>
-      <Link to="/listaobj"> Equipamentos </Link>
-      <Link to="/cadastroobj"> Cadastro de equipamentos </Link>
+    <div className="menu">
+      <div className="menu">
+        <button> <Link to="/home"> Home </Link> </button>
+        <button> <Link to="/listaobj"> Equipamentos </Link> </button>
+        <button> <Link to="/cadastroobj"> Cadastro de equipamentos </Link> </button>
+      </div>
+      <h2> {user.email} </h2>
       <button onClick={() => [signout(), navigate("/")]}>Sair</button>
-      <hr />
     </div>
   );
 };

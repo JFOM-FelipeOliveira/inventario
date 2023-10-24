@@ -1,8 +1,40 @@
 .App {
   text-align: center;
+  font-family: 'Roboto', sans-serif;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+button{
+  background-color: blue;
+  color: white;
+  font-size: 1.5rem;
+  margin: 5px;
+  border: none;
+}
+
+button:hover{
+  background-color: darkblue;
+}
+
+button[disabled]{
+  background-color: #696969;
+}
+
+form{
+  display: flex;
+  flex-direction: columns;
+  flex-wrap: wrap;
+}
+
+input{
+  font-size: 1rem;
 }
